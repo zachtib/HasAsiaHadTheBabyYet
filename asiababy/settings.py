@@ -20,10 +20,13 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'ba9ae8@a0^lquz)a3&j0xianxch@k90nu+-@ljth8x#+f%_(n%'
+SECRET_KEY = os.environ.get('SECRET_KEY') or 'bk)$vqt^j00(95e7&&ee0bubeclj1ov)g)#nwm+*o47l9lhlc9'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get('DEBUG', '0') == '1'
+
+ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', 'localhost,127.0.0.1,0.0.0.0').split(',')
+INTERNAL_IPS = ('127.0.0.1', )
 
 ALLOWED_HOSTS = []
 
@@ -118,3 +121,28 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
 STATIC_URL = '/static/'
+
+import django_heroku
+django_heroku.settings(locals())
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['console'],
+            'level': os.getenv('DJANGO_LOG_LEVEL', 'ERROR'),
+        },
+    },
+}
+
+MESSAGE_TAGS = {
+    messages.ERROR: 'danger'
+}
+
+ADMIN_URL = os.getenv('ADMIN_URL', 'admin')
