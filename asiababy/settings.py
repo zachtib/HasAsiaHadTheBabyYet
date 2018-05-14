@@ -143,3 +143,5 @@ LOGGING = {
 }
 
 ADMIN_URL = os.getenv('ADMIN_URL', 'admin')
+
+SECRET_URL = os.getenv('SECRET_URL', 'secret')

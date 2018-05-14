@@ -17,10 +17,11 @@ from django.conf import settings
 from django.contrib import admin
 from django.urls import path
 
-from babyyet.views import autoconfigure, home
+from babyyet.views import autoconfigure, home, supersecret
 
 urlpatterns = [
     path(f'{settings.ADMIN_URL}/', admin.site.urls),
+    path(f'{settings.SECRET_URL}/', supersecret),
     path('autoconfigure/', autoconfigure),
     path('', home),
 ]

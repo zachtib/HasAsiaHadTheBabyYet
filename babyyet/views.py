@@ -1,6 +1,7 @@
 from django.contrib.auth.models import User
 from django.http import Http404, HttpResponseRedirect
 from django.shortcuts import render
+from django.views.decorators.http import require_http_methods
 
 from .models import BabyYet
 
@@ -32,3 +33,17 @@ def home(request):
         babyyet = BabyYet()
         babyyet.save()
     return render(request, 'home.html', locals())
+
+
+@require_http_methods(["GET", "POST"])
+def supersecret(request):
+    if request.method == 'POST':
+        try:
+            babyyet = BabyYet.objects.get(id=1)
+            babyyet.baby_yet = True
+            babyyet.save()
+        except BabyYet.DoesNotExist:
+            pass
+        return HttpResponseRedirect('/')
+    else:
+        return render(request, 'secret.html', {})
