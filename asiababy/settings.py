@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'babyyet',
 ]
 
 MIDDLEWARE = [
@@ -139,10 +140,6 @@ LOGGING = {
             'level': os.getenv('DJANGO_LOG_LEVEL', 'ERROR'),
         },
     },
-}
-
-MESSAGE_TAGS = {
-    messages.ERROR: 'danger'
 }
 
 ADMIN_URL = os.getenv('ADMIN_URL', 'admin')
