@@ -20,6 +20,11 @@
                 {% if babyyet.baby_yet %} Yep {% else %} Nope {% endif %}
             </p>
         </div>
+        {% if babyyet.baby_yet and babyyet.diapers_url %}
+        <div class="row justify-content-center align-items-center">
+            <p><a href="{{ babyyet.diapers_url }}">Buy us diapers!</a></p>
+        </div>
+        {% endif %}
     </div>
 
     <!-- Optional JavaScript -->
